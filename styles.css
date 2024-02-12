@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+button {
+    margin-left: 20px;
+    background-color: transparent;
+    border: none;
+    font-size: 2rem;
+    color: mediumturquoise;
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+    width: 100vw;
+}
+
+
+body {
+    background-color: cadetblue;
+    font-size: 16px;
+}
+
+.square {
+    background-color: cadetblue;
+}
+
+.container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    /* border: 1px solid black; */
+    width: 320px;
+    height: 320px;
+}
+
+.squareContainer {
+    display: grid;
+    grid-template: repeat(3, 100px) / repeat(3, 100px);
+    background: mediumturquoise;
+    grid-gap: 10px;
+}
