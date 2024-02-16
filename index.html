@@ -9,21 +9,27 @@
 </head>
 <body>
     <div class="btns">
-        <button class="O" onclick="gameFunctions.changeMarkComputer.changeMarkFunction('O')">○</button>
-        <button class="X" onclick="gameFunctions.changeMarkComputer.changeMarkFunction('X')">×</button>
+        <button id="O" onclick="gameFunctions.chooseMark.playerChooseO()">○</button>
+        <button id="X" onclick="gameFunctions.chooseMark.playerChooseX()">×</button>
     </div>
     <div class="container">
         <div class="squareContainer">
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
+            <div class="square" id="00" onclick="gameFunctions.play(this.id)"></div>
+            <div class="square" id="01" onclick="gameFunctions.play(this.id)"></div>
+            <div class="square" id="02" onclick="gameFunctions.play(this.id)"></div>
+            <div class="square" id="10" onclick="gameFunctions.play(this.id)"></div>
+            <div class="square" id="11" onclick="gameFunctions.play(this.id)"></div>
+            <div class="square" id="12" onclick="gameFunctions.play(this.id)"></div>
+            <div class="square" id="20" onclick="gameFunctions.play(this.id)"></div>
+            <div class="square" id="21" onclick="gameFunctions.play(this.id)"></div>
+            <div class="square" id="22" onclick="gameFunctions.play(this.id)"></div>
         </div>
+    </div>
+    <div>
+        <div id="displayResult"></div>
+    </div>
+    <div>
+        <button id="clearGame" onclick="gameFunctions.clearGame()"></button>
     </div>
 </body>
 </html>

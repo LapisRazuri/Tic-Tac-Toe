@@ -48,3 +48,35 @@ body {
     background: mediumturquoise;
     grid-gap: 10px;
 }
+
+
+.circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: mediumturquoise;
+}
+
+.cross {
+    width: 200px;
+    height: 100px;
+    position: relative;
+}
+
+.cross:before,
+.cross:after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 100%;
+    background-color: mediumturquoise; 
+}
+
+.cross:before {
+    transform: rotate(50deg);
+}
+
+.cross:after {
+    transform: rotate(-50deg);
+}
+
