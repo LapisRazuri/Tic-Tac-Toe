@@ -9,8 +9,8 @@
 </head>
 <body>
     <div class="btns">
-        <button id="O" onclick="gameFunctions.chooseMark.playerChooseO()">○</button>
-        <button id="X" onclick="gameFunctions.chooseMark.playerChooseX()">×</button>
+        <button id="O" onclick="gameFunctions.playerChoose(this.id)">○</button>
+        <button id="X" onclick="gameFunctions.playerChoose(this.id)">×</button>
     </div>
     <div class="container">
         <div class="squareContainer">
@@ -29,7 +29,7 @@
         <div id="displayResult"></div>
     </div>
     <div>
-        <button id="clearGame" onclick="gameFunctions.clearGame()"></button>
+        <button id="clearGame" onclick="gameFunctions.boardModification.clearGame()">Clear</button>
     </div>
 </body>
 </html>

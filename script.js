@@ -21,55 +21,74 @@ const gameFunctions = (function () {
 
 
 
-    const stringConverter = function (buttonId) {
+    function stringConverter (buttonId) {
         arrItem = String(buttonId)
 
-
-        console.log(typeof arrItem)
+        console.log(arrItem)
 
         return arrItem;
     }
 
-    const splitArrItem = function () {
+    // function addSquareMarked () {
+    //     markedSquares.push(arrItem);
+    // }
+
+
+    function splitArrItem () {
         cellIndex1 = Number(arrItem.charAt(0));
         cellIndex2 = Number(arrItem.charAt(1));
-
-        console.log(cellIndex1)
-        console.log(cellIndex2)
 
         return [cellIndex1, cellIndex2];
     };
 
 
-    const removeIndexFromArray = function (){
-        index = arrIndex.indexOf(arrItem);
-        arrIndex.splice(index, 1);
 
+    function removeIndexFromArray (){
+
+        index = arrIndex.indexOf(arrItem);
         console.log(arrItem)
-        console.log(typeof arrItem)
+        console.log(index)
+        if (index == -1) {
+
+            console.log(arrItem)
+        console.log(arrIndex)
+        console.log(index)
+
+        console.log(arrIndex)
+        
+           return false;
+        }
+
+        else {
+            arrIndex.splice(index, 1);
+
+            console.log(arrItem)
+        console.log(arrIndex)
+        console.log(index)
+
         console.log(arrIndex)
 
-        return arrItem
+        return true;
+        }
     }
 
-    const computerMark = function () {
+  
+
+     function computerMark () {
         
         (playerMark == "O")? compMark = "X" : compMark = "O";
         
         return compMark;
     };
 
-    const computerSelectedSquare = function () {
+    function computerSelectedSquare () {
         const randomIndex = Math.floor(Math.random() * arrIndex.length);
         arrItem = arrIndex[randomIndex];
-
-        console.log(randomIndex)
-        console.log(arrItem)
 
         return arrItem;
     }
 
-    const gameBoard = function () {
+    function gameBoard () {
         const row = [];
         for (let i = 0; i < 3; i++) {
             row[i] = [];
@@ -82,16 +101,14 @@ const gameFunctions = (function () {
     };
 
     const boardModification = (function () {
-        const board = gameBoard();
+        let board = gameBoard();
 
         const markBoard = function (compOrPlayerMark) {
-            console.log(cellIndex1)
-            console.log(cellIndex2)
-            board[cellIndex1][cellIndex2] = compOrPlayerMark;
+                board[cellIndex1][cellIndex2] = compOrPlayerMark;
 
-            console.log(compOrPlayerMark)
-            console.log(board)
         };
+
+       
 
         const threeStraightRowChecker = function () {
             if ((board[0][0] == "X" && board[0][1] == "X" && board[0][2] == "X")  || 
@@ -102,9 +119,7 @@ const gameFunctions = (function () {
                 (board[0][2] == "X" && board[1][2] == "X" && board[2][2] == "X")  || 
                 (board[0][0] == "X" && board[1][1] == "X" && board[2][2] == "X")  || 
                 (board[0][2] == "X" && board[1][1] == "X" && board[2][0] == "X")) {
-                    console.log(board[0][0])
-                    console.log(compMark)
-                    console.log(playerMark)
+
                     compMark == "X"? displayResult.textContent = "Computer is the winner" : displayResult.textContent = "Player is the winner";
                     return displayResult.textContent;
 
@@ -119,43 +134,60 @@ const gameFunctions = (function () {
                  (board[0][2] == "O" && board[1][2] == "O" && board[2][2] == "O")  || 
                  (board[0][0] == "O" && board[1][1] == "O" && board[2][2] == "O")  || 
                  (board[0][2] == "O" && board[1][1] == "O" && board[2][0] == "O")) {
-                    console.log(compMark)
-                    console.log(playerMark)
+          
                     compMark == "O"? displayResult.textContent = "Computer is the winner" : displayResult.textContent = "Player is the winner";
                     return displayResult.textContent;       
             }
         };
 
-        return {markBoard, threeStraightRowChecker}
+        const clearGame = function () {
+            arrIndex = ["00", "01", "02", "10", "11", "12", "20", "21", "22"];
+            board = gameBoard();
+
+            for (let i = 0; i < displayIndex.length; i ++) {
+                const squares = displayIndex[i];
+                
+                squares.lastElementChild? squares.lastElementChild.remove() : null;
+
+                console.log(squares)
+
+              
+                
+            }
+            console.log(board)
+            console.log(arrIndex)
+            }
+
+        return {markBoard, threeStraightRowChecker, clearGame}
 
     })();
 
-    const displayPlayerMark = function (buttonId) {
+    function displayPlayerMark (buttonId) {
         const squarePlayer = document.getElementById(buttonId);
         let squarePlayerIndex = squarePlayer.id;
+
         
 
         if (playerMark == "X") {
             const cross = document.createElement("div");
             cross.className = "cross";
             document.getElementById(squarePlayerIndex).appendChild(cross);
-            console.log(playerMark)
+          
 
         }
         else {
             const circle = document.createElement("div");
             circle.className = "circle";
             document.getElementById(squarePlayerIndex).appendChild(circle);
-            console.log(playerMark)
+           
         }
         return squarePlayerIndex;
     }
 
-    const displayCompMark = function () {
+    function displayCompMark () {
         for (let i = 0; i < displayIndex.length; i ++) {
             if (displayIndex[i].id == arrItem) {
-                console.log(displayIndex[i])
-                console.log(displayIndex[i].id)
+               
                 if (computerMark() == "X") {
                     const cross = document.createElement("div");
                     cross.className = "cross";
@@ -170,71 +202,55 @@ const gameFunctions = (function () {
         }
     }
 
-    const allSquaresFull = function () {
+
+    function allSquaresFull () {
         arrIndex == []? displayResult.textContent = "Draw" : null; 
 
     }
 
-    const clearGame = function () {
-        arrIndex = ["00", "01", "02", "10", "11", "12", "20", "21", "22"];
-        gameBoard();
-        turn = 0;
-        }
-   
-    const chooseMark = (function () {
-
-        const playerChooseO = function () {
-            playerMark = "O";
-            computerSelectedSquare();
-            removeIndexFromArray();
-            splitArrItem();
-            displayCompMark();
-            boardModification.markBoard("X");
-        }
-        
-        const playerChooseX = function () {
-            playerMark = "X";
-            computerSelectedSquare();
-            removeIndexFromArray();
-            splitArrItem();
-            displayCompMark();
-            boardModification.markBoard("O");
-        }
-
-        return {playerChooseO, playerChooseX}
-
-    })();
-
-    const play = function (buttonId) {
-        console.log(playerMark)
-    
-        stringConverter(buttonId);
-        removeIndexFromArray();
-        splitArrItem();
-        displayPlayerMark(buttonId);//this is square selected by the player and puts the mark that player chose
-        boardModification.markBoard(playerMark);
-        allSquaresFull;
-
-        if (boardModification.threeStraightRowChecker() == displayResult.textContent) {
-            return ""
-        }
-
-        else {
+    function playerChoose (mark) {
+        playerMark = String(mark);
         computerSelectedSquare();
+        // addSquareMarked();
         removeIndexFromArray();
         splitArrItem();
         displayCompMark();
         boardModification.markBoard(compMark);
-        boardModification.threeStraightRowChecker();
-        allSquaresFull;
+    }   
+
+    function play (buttonId) {
+            stringConverter(buttonId);
+
+            if (removeIndexFromArray() == true) {
+                splitArrItem();
+                displayPlayerMark(buttonId);//this is square selected by the player and puts the mark that player chose
+                boardModification.markBoard(playerMark);
+                allSquaresFull;
+        
+                if (boardModification.threeStraightRowChecker() == displayResult.textContent) {
+                    return ""
+                }
+        
+                else {
+                computerSelectedSquare();
+                removeIndexFromArray();
+                splitArrItem();
+                displayCompMark();
+                boardModification.markBoard(compMark);
+                boardModification.threeStraightRowChecker();
+                allSquaresFull;
+                }
+                
+            }
+            else {
+                return alert("That square is already selected");
+            }
 
         }
-
+            
         
-
-    }
     
-    return {computerMark, computerSelectedSquare, allSquaresFull, 
-            clearGame, displayCompMark, play, chooseMark, removeIndexFromArray, 
-            stringConverter, splitArrItem, boardModification};
+       
+    
+    return {playerChoose, play, boardModification};
 })();
