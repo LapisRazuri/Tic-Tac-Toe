@@ -2,14 +2,49 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: KodeMono, sans-serif;
+}
+
+@font-face {
+    font-family: KodeMono;
+    src: url(fonts/Kode_Mono/KodeMono-VariableFont_wght.ttf);
+}
+
+.clearBtn {
+    font-size: 2rem;
+    /* text-align: center; */
+}
+
+
+
+div#displayResult {
+    height: 80px;
+    width: 500px;
+    margin: 50px;
+    /* border: 1px solid black; */
+    color: mediumturquoise;
+    font-size: 3rem;
+    text-align: center;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* align-content: center; */
+    justify-content: center;
 }
 
 button {
-    margin-left: 20px;
+    /* margin-left: 50px; */
     background-color: transparent;
     border: none;
-    font-size: 2rem;
     color: mediumturquoise;
+    font-size: inherit;
+}
+
+button#O {
+    margin-right: 50px;
 }
 
 .btns {
@@ -17,7 +52,8 @@ button {
     justify-content: center;
     align-items: center;
     height: 30vh;
-    width: 100vw;
+    width: 92vw;
+    font-size: 5rem;
 }
 
 
@@ -31,12 +67,12 @@ body {
 }
 
 .container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: auto;
+    /* position: absolute; */
+    /* top: 0; */
+    /* right: 0; */
+    /* bottom: 0; */
+    /* left: 0; */
+    /* margin: auto; */
     /* border: 1px solid black; */
     width: 320px;
     height: 320px;
@@ -51,16 +87,21 @@ body {
 
 
 .circle {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     background-color: mediumturquoise;
+    border: 10px solid mediumturquoise;
+    background-color: cadetblue;
+    margin: 5px;
 }
 
 .cross {
-    width: 200px;
+    /* width: 100px; */
     height: 100px;
     position: relative;
+    /* border: 1px solid black; */
+    padding-left: 45px;
 }
 
 .cross:before,
@@ -69,7 +110,7 @@ body {
     position: absolute;
     width: 10px;
     height: 100%;
-    background-color: mediumturquoise; 
+    background-color: mediumturquoise;
 }
 
 .cross:before {

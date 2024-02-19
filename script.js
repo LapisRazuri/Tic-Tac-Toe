@@ -211,7 +211,6 @@ const gameFunctions = (function () {
     function playerChoose (mark) {
         playerMark = String(mark);
         computerSelectedSquare();
-        // addSquareMarked();
         removeIndexFromArray();
         splitArrItem();
         displayCompMark();
