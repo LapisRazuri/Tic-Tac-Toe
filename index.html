@@ -10,7 +10,8 @@
 <body>
     <div class="btns">
         <button id="O" onclick="gameFunctions.playerChoose(this.id)">○</button>
-        <button id="X" onclick="gameFunctions.playerChoose(this.id)">×</button>
+        <button id="X" onclick="gameFunctions.playerChoose(this.id);
+                                gameFunctions.compGoFirst()">×</button>
     </div>
     <div class="container">
         <div class="squareContainer">

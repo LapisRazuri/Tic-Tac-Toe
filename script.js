@@ -18,6 +18,7 @@ const gameFunctions = (function () {
     let index = "";
     let cellIndex1 = "";
     let cellIndex2 = "";
+    let turn = 0;
 
 
 
@@ -50,11 +51,10 @@ const gameFunctions = (function () {
         console.log(index)
         if (index == -1) {
 
-            console.log(arrItem)
+        console.log(arrItem)
         console.log(arrIndex)
         console.log(index)
 
-        console.log(arrIndex)
         
            return false;
         }
@@ -62,7 +62,7 @@ const gameFunctions = (function () {
         else {
             arrIndex.splice(index, 1);
 
-            console.log(arrItem)
+        console.log(arrItem)
         console.log(arrIndex)
         console.log(index)
 
@@ -84,6 +84,8 @@ const gameFunctions = (function () {
     function computerSelectedSquare () {
         const randomIndex = Math.floor(Math.random() * arrIndex.length);
         arrItem = arrIndex[randomIndex];
+
+        console.log(arrItem)
 
         return arrItem;
     }
@@ -111,6 +113,7 @@ const gameFunctions = (function () {
        
 
         const threeStraightRowChecker = function () {
+
             if ((board[0][0] == "X" && board[0][1] == "X" && board[0][2] == "X")  || 
                 (board[1][0] == "X" && board[1][1] == "X" && board[1][2] == "X")  || 
                 (board[2][0] == "X" && board[2][1] == "X" && board[2][2] == "X")  || 
@@ -138,11 +141,14 @@ const gameFunctions = (function () {
                     compMark == "O"? displayResult.textContent = "Computer is the winner" : displayResult.textContent = "Player is the winner";
                     return displayResult.textContent;       
             }
+      
         };
 
         const clearGame = function () {
             arrIndex = ["00", "01", "02", "10", "11", "12", "20", "21", "22"];
             board = gameBoard();
+            displayResult.textContent = "";
+            turn = 0;
 
             for (let i = 0; i < displayIndex.length; i ++) {
                 const squares = displayIndex[i];
@@ -204,52 +210,76 @@ const gameFunctions = (function () {
 
 
     function allSquaresFull () {
-        arrIndex == []? displayResult.textContent = "Draw" : null; 
+        console.log(arrIndex)
+        arrIndex.length === 0 ?displayResult.textContent = "Draw!": null;
 
     }
 
     function playerChoose (mark) {
         playerMark = String(mark);
-        computerSelectedSquare();
-        removeIndexFromArray();
-        splitArrItem();
-        displayCompMark();
-        boardModification.markBoard(compMark);
+        computerMark();
+
+        console.log(playerMark)
+        console.log(compMark) 
+        // computerSelectedSquare();
+        // removeIndexFromArray();
+        // splitArrItem();
+        // displayCompMark();
+        // boardModification.markBoard(compMark);
     }   
+
+    function compGoFirst () {
+        turn++;
+        
+        if (turn <= 1 ) {
+            computerSelectedSquare();
+            removeIndexFromArray();
+            splitArrItem();
+            displayCompMark();
+            boardModification.markBoard(compMark);
+        }
+    }
 
     function play (buttonId) {
             stringConverter(buttonId);
 
-            if (removeIndexFromArray() == true) {
+            
+
+            if (removeIndexFromArray() == true ) {
                 splitArrItem();
                 displayPlayerMark(buttonId);//this is square selected by the player and puts the mark that player chose
                 boardModification.markBoard(playerMark);
-                allSquaresFull;
+                allSquaresFull();
+                console.log(arrIndex)
+            
         
                 if (boardModification.threeStraightRowChecker() == displayResult.textContent) {
                     return ""
                 }
-        
                 else {
-                computerSelectedSquare();
-                removeIndexFromArray();
-                splitArrItem();
-                displayCompMark();
-                boardModification.markBoard(compMark);
-                boardModification.threeStraightRowChecker();
-                allSquaresFull;
+                    if (arrIndex.length === 0) {
+                        allSquaresFull();
+                        return displayResult.textContent
+                    } 
+                    else {
+                    computerSelectedSquare();
+                    removeIndexFromArray();
+                    splitArrItem();
+                    displayCompMark();
+                    boardModification.markBoard(compMark);
+                    boardModification.threeStraightRowChecker();
+                    allSquaresFull();
+                    }   
                 }
                 
             }
             else {
                 return alert("That square is already selected");
             }
-
-        }
-            
         
+            
+        }
+              
     
-       
-    
-    return {playerChoose, play, boardModification};
+    return {playerChoose, compGoFirst, play, boardModification};
 })();
