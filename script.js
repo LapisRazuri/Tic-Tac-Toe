@@ -22,18 +22,11 @@ const gameFunctions = (function () {
 
 
 
-    function stringConverter (buttonId) {
+    function stringConverter (buttonId) { 
         arrItem = String(buttonId)
 
-        console.log(arrItem)
-
         return arrItem;
-    }
-
-    // function addSquareMarked () {
-    //     markedSquares.push(arrItem);
-    // }
-
+    };
 
     function splitArrItem () {
         cellIndex1 = Number(arrItem.charAt(0));
@@ -42,19 +35,11 @@ const gameFunctions = (function () {
         return [cellIndex1, cellIndex2];
     };
 
-
-
     function removeIndexFromArray (){
-
-        index = arrIndex.indexOf(arrItem);
-        console.log(arrItem)
+        index = arrIndex.indexOf(arrItem); //if the arrItem does not exist in the array indexOf will return -1
+        console.log(arrItem)               //prevent putting mark when the player tries to select already selected square
         console.log(index)
-        if (index == -1) {
-
-        console.log(arrItem)
-        console.log(arrIndex)
-        console.log(index)
-
+        if (index == -1) { 
         
            return false;
         }
@@ -70,11 +55,9 @@ const gameFunctions = (function () {
 
         return true;
         }
-    }
+    };
 
-  
-
-     function computerMark () {
+    function computerMark () {
         
         (playerMark == "O")? compMark = "X" : compMark = "O";
         
@@ -88,7 +71,7 @@ const gameFunctions = (function () {
         console.log(arrItem)
 
         return arrItem;
-    }
+    };
 
     function gameBoard () {
         const row = [];
@@ -107,7 +90,6 @@ const gameFunctions = (function () {
 
         const markBoard = function (compOrPlayerMark) {
                 board[cellIndex1][cellIndex2] = compOrPlayerMark;
-
         };
 
        
@@ -153,16 +135,10 @@ const gameFunctions = (function () {
             for (let i = 0; i < displayIndex.length; i ++) {
                 const squares = displayIndex[i];
                 
-                squares.lastElementChild? squares.lastElementChild.remove() : null;
-
-                console.log(squares)
-
-              
-                
+                squares.lastElementChild? squares.lastElementChild.remove() : null; 
             }
-            console.log(board)
-            console.log(arrIndex)
-            }
+          
+        };
 
         return {markBoard, threeStraightRowChecker, clearGame}
 
@@ -189,7 +165,7 @@ const gameFunctions = (function () {
             circle.classList.add('rightCircle');
         }
         return squarePlayerIndex;
-    }
+    };
 
     function displayCompMark () {
         for (let i = 0; i < displayIndex.length; i ++) {
@@ -214,20 +190,20 @@ const gameFunctions = (function () {
                 }
             }
         }
-    }
+    };
 
     function delay (element, className, sec) {
         setTimeout(function() {
             element.classList.add(className);
         }, sec); 
-    }
+    };
 
 
     function allSquaresFull () {
         console.log(arrIndex)
         arrIndex.length === 0 ?displayResult.textContent = "Draw!": null;
 
-    }
+    };
 
     function playerChoose (mark) {
         playerMark = String(mark);
@@ -243,45 +219,42 @@ const gameFunctions = (function () {
             displayCompMark();
             boardModification.markBoard(compMark);
         }
-    }
+    };
 
     function play (buttonId) {
             stringConverter(buttonId);
 
-            if (removeIndexFromArray() == true ) {
-                splitArrItem();
-                displayPlayerMark(buttonId);//this is square selected by the player and puts the mark that player chose
-                boardModification.markBoard(playerMark);
-                allSquaresFull();
-                console.log(arrIndex)
-            
+        if (removeIndexFromArray() == true ) { //if the square is not selected by player before
+            splitArrItem();
+            displayPlayerMark(buttonId);
+            boardModification.markBoard(playerMark);
+            console.log(arrIndex)
         
-                if (boardModification.threeStraightRowChecker() == displayResult.textContent) {
-                    return ""
-                }
-                else {
-                    if (arrIndex.length === 0) {
-                        allSquaresFull();
-                        return displayResult.textContent
-                    } 
-                    else {
-                    computerSelectedSquare();
-                    removeIndexFromArray();
-                    splitArrItem();
-                    displayCompMark();
-                    boardModification.markBoard(compMark);
-                    boardModification.threeStraightRowChecker();
-                    allSquaresFull();
-                    }   
-                }
-                
+    
+            if (boardModification.threeStraightRowChecker() == displayResult.textContent) {
+                return "" 
             }
             else {
-                return alert("That square is already selected");
+                if (arrIndex.length === 0) {
+                    allSquaresFull();
+                    return displayResult.textContent
+                } 
+                else {
+                computerSelectedSquare();
+                removeIndexFromArray();
+                splitArrItem();
+                displayCompMark();
+                boardModification.markBoard(compMark);
+                boardModification.threeStraightRowChecker();
+                allSquaresFull();
+                }   
             }
-        
             
         }
+        else {
+            return alert("That square is already selected");
+        } 
+    };
               
     
     return {playerChoose, compGoFirst, play, boardModification};
