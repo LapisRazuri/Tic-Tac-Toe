@@ -123,7 +123,7 @@ const gameFunctions = (function () {
                 (board[0][0] == "X" && board[1][1] == "X" && board[2][2] == "X")  || 
                 (board[0][2] == "X" && board[1][1] == "X" && board[2][0] == "X")) {
 
-                    compMark == "X"? displayResult.textContent = "Computer is the winner" : displayResult.textContent = "Player is the winner";
+                    compMark == "X"? displayResult.textContent = "Computer wins!" : displayResult.textContent = "Player wins!";
                     return displayResult.textContent;
 
                     
@@ -138,7 +138,7 @@ const gameFunctions = (function () {
                  (board[0][0] == "O" && board[1][1] == "O" && board[2][2] == "O")  || 
                  (board[0][2] == "O" && board[1][1] == "O" && board[2][0] == "O")) {
           
-                    compMark == "O"? displayResult.textContent = "Computer is the winner" : displayResult.textContent = "Player is the winner";
+                    compMark == "O"? displayResult.textContent = "Computer wins!" : displayResult.textContent = "Player wins!";
                     return displayResult.textContent;       
             }
       
@@ -178,14 +178,15 @@ const gameFunctions = (function () {
             const cross = document.createElement("div");
             cross.className = "cross";
             document.getElementById(squarePlayerIndex).appendChild(cross);
-          
+            delay(cross, 'drawn', 0)
+            delay(cross, 'drawnLater', 0)
 
         }
         else {
             const circle = document.createElement("div");
             circle.className = "circle";
             document.getElementById(squarePlayerIndex).appendChild(circle);
-           
+            circle.classList.add('rightCircle');
         }
         return squarePlayerIndex;
     }
@@ -198,14 +199,27 @@ const gameFunctions = (function () {
                     const cross = document.createElement("div");
                     cross.className = "cross";
                     document.getElementById(String(displayIndex[i].id)).appendChild(cross);
+                    delay(cross, 'drawn', 500);
+                    delay(cross, 'drawnLater', 850);
+                                 
                 }
                 else {
                     const circle = document.createElement("div");
                     circle.className = "circle";
                     document.getElementById(String(displayIndex[i].id)).appendChild(circle);
+                    delay(circle, 'topCircle', 100)
+                    delay(circle, 'leftCircle', 180);
+                    delay(circle, 'bottomCircle', 220);
+                    delay(circle,'rightCircle', 300);
                 }
             }
         }
+    }
+
+    function delay (element, className, sec) {
+        setTimeout(function() {
+            element.classList.add(className);
+        }, sec); 
     }
 
 
@@ -218,19 +232,10 @@ const gameFunctions = (function () {
     function playerChoose (mark) {
         playerMark = String(mark);
         computerMark();
-
-        console.log(playerMark)
-        console.log(compMark) 
-        // computerSelectedSquare();
-        // removeIndexFromArray();
-        // splitArrItem();
-        // displayCompMark();
-        // boardModification.markBoard(compMark);
     }   
 
     function compGoFirst () {
         turn++;
-        
         if (turn <= 1 ) {
             computerSelectedSquare();
             removeIndexFromArray();
@@ -242,8 +247,6 @@ const gameFunctions = (function () {
 
     function play (buttonId) {
             stringConverter(buttonId);
-
-            
 
             if (removeIndexFromArray() == true ) {
                 splitArrItem();

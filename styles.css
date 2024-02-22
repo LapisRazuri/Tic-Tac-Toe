@@ -88,36 +88,60 @@ body {
 
 .circle {
     width: 90px;
-    height: 90px;
+    height: 90px; 
     border-radius: 50%;
-    background-color: mediumturquoise;
-    border: 10px solid mediumturquoise;
-    background-color: cadetblue;
     margin: 5px;
 }
 
-.cross {
-    /* width: 100px; */
-    height: 100px;
-    position: relative;
-    /* border: 1px solid black; */
-    padding-left: 45px;
+.topCircle {
+   border-top: 10px solid mediumturquoise;   
 }
 
-.cross:before,
-.cross:after {
+
+.leftCircle {
+   border-left: 10px solid mediumturquoise;
+}
+
+.bottomCircle {
+    border-bottom: 10px solid mediumturquoise;
+}
+
+.rightCircle {
+    border: 10px solid mediumturquoise;
+}
+
+.cross {
+    height: 100px;
+    position: relative;
+    padding-left: 45px;
+    
+}
+
+.cross::before,
+.cross::after {
     content: '';
     position: absolute;
     width: 10px;
-    height: 100%;
+    height: 0%;
     background-color: mediumturquoise;
 }
 
-.cross:before {
-    transform: rotate(50deg);
+.cross::before {
+    transform: rotate(225deg);
 }
 
-.cross:after {
+.cross::after {
     transform: rotate(-50deg);
 }
+
+.cross.drawn::before {
+    height: 100%; 
+}
+
+.cross.drawnLater::after {
+    height: 100%; 
+}
+
+
+
 
