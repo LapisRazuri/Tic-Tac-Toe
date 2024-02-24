@@ -19,6 +19,7 @@ const gameFunctions = (function () {
     let cellIndex1 = "";
     let cellIndex2 = "";
     let turn = 0;
+    let allowClick = true;
 
 
 
@@ -106,6 +107,7 @@ const gameFunctions = (function () {
                 (board[0][2] == "X" && board[1][1] == "X" && board[2][0] == "X")) {
 
                     compMark == "X"? displayResult.textContent = "Computer wins!" : displayResult.textContent = "Player wins!";
+                    allowClick = false;// prevent mark after game set
                     return displayResult.textContent;
 
                     
@@ -121,6 +123,7 @@ const gameFunctions = (function () {
                  (board[0][2] == "O" && board[1][1] == "O" && board[2][0] == "O")) {
           
                     compMark == "O"? displayResult.textContent = "Computer wins!" : displayResult.textContent = "Player wins!";
+                    allowClick = false;// prevent mark after game set
                     return displayResult.textContent;       
             }
       
@@ -131,6 +134,7 @@ const gameFunctions = (function () {
             board = gameBoard();
             displayResult.textContent = "";
             turn = 0;
+            allowClick = true;
 
             for (let i = 0; i < displayIndex.length; i ++) {
                 const squares = displayIndex[i];
@@ -201,7 +205,7 @@ const gameFunctions = (function () {
 
     function allSquaresFull () {
         console.log(arrIndex)
-        arrIndex.length === 0 ?displayResult.textContent = "Draw!": null;
+        arrIndex.length === 0 ? (displayResult.textContent = "Draw!", allowClick = false) : null;
 
     };
 
@@ -212,32 +216,34 @@ const gameFunctions = (function () {
 
     function compGoFirst () {
         turn++;
-        if (turn <= 1 ) {
+        if (turn <= 1 && allowClick == true) {
             computerSelectedSquare();
             removeIndexFromArray();
             splitArrItem();
             displayCompMark();
             boardModification.markBoard(compMark);
         }
-    };
+    };  
 
     function play (buttonId) {
             stringConverter(buttonId);
-
-        if (removeIndexFromArray() == true ) { //if the square is not selected by player before
+        if (allowClick == false) {
+            return "Game set"
+        }
+        
+        else if (removeIndexFromArray() == true ) { //check if the same square is not selected by the player
             splitArrItem();
             displayPlayerMark(buttonId);
             boardModification.markBoard(playerMark);
             console.log(arrIndex)
         
-    
             if (boardModification.threeStraightRowChecker() == displayResult.textContent) {
-                return "" 
+                return "" // prevent computer from taking the turn after this
             }
             else {
-                if (arrIndex.length === 0) {
+                if (arrIndex.length === 0) { 
                     allSquaresFull();
-                    return displayResult.textContent
+                    return displayResult.textContent // prevent computer from taking the turn after this
                 } 
                 else {
                 computerSelectedSquare();
@@ -248,8 +254,7 @@ const gameFunctions = (function () {
                 boardModification.threeStraightRowChecker();
                 allSquaresFull();
                 }   
-            }
-            
+            }  
         }
         else {
             return alert("That square is already selected");
